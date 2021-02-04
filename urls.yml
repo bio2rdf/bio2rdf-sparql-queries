@@ -1,0 +1,8 @@
+title: Bio2RDF API generated via URL
+contact:
+  name: Michel Dumontier
+  url: https://maastrichtuniversity.nl/michel.dumontier
+licence: https://github.com/bio2rdf/bio2rdf-sparql-queries/blob/main/LICENSE
+queries:
+  - https://raw.githubusercontent.com/bio2rdf/bio2rdf-sparql-queries/master/generic/select-number-of-triples-for-graph.rq
+  - https://raw.githubusercontent.com/bio2rdf/bio2rdf-sparql-queries/master/generic/construct-number-triples-for-graph.rq
