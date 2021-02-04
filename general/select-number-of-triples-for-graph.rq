@@ -6,6 +6,6 @@ PREFIX void: <http://rdfs.org/ns/void#>
 
 SELECT ?triples
 {
-    <?_graph_iri> a void:Dataset ;
+    ?_graph_iri a void:Dataset ;
      void:triples ?triples .
 }

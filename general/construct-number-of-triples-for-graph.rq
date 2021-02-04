@@ -5,10 +5,10 @@
 PREFIX void: <http://rdfs.org/ns/void#>
 
 CONSTRUCT {
-  <?_graph_iri> a void:Dataset ;
+  ?_graph_iri a void:Dataset ;
     void:triples ?triples .
 } 
-FROM <?_graph_iri>
+FROM ?_graph_iri
 {
     SELECT (COUNT(*) AS ?triples) 
     { 
