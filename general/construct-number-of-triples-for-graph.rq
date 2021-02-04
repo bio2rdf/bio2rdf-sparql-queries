@@ -8,10 +8,12 @@ CONSTRUCT {
   ?_graph_iri a void:Dataset ;
     void:triples ?triples .
 } 
-FROM ?_graph_iri
+WHERE
 {
-    SELECT (COUNT(*) AS ?triples) 
-    { 
-        ?s ?p ?o  
-    } 
+    GRAPH ?_graph_iri {
+        SELECT (COUNT(*) AS ?triples) 
+        { 
+            ?s ?p ?o  
+        } 
+    }
 }
