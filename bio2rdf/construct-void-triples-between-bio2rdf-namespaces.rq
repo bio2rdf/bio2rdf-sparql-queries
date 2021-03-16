@@ -3,6 +3,7 @@
 #+   - bio2rdf-metadata
 #+ defaults:
 #+   - dataset: hgnc
+#+   - bio2rdf_version: 5
 
 PREFIX sio: <http://semanticscience.org/resource/>
 PREFIX void: <http://rdfs.org/ns/void#>
@@ -39,7 +40,7 @@ WHERE
       BIND( URI(CONCAT("http://bio2rdf.org/lsr:",$ns2)) AS ?ns2u)
       BIND( CONCAT($ns, "_resource") AS $nsr)
       BIND( CONCAT(?ns, "_vocabulary") AS ?nsv)
-      BIND( URI(CONCAT("http://bio2rdf.org/", ?ns, "_resource:bio2rdf.dataset.", ?ns, ".R5")) AS ?guri)
+      BIND( URI(CONCAT("http://bio2rdf.org/", ?ns, "_resource:bio2rdf.dataset.", ?ns, ".R", ?_bio2rdf_version)) AS ?guri)
     }
     GROUP BY ?guri ?ns1u ?ns2u
    # ORDER BY asc(?ns1) DESC(?triples) ASC(?ns2)
