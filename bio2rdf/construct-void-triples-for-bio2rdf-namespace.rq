@@ -1,0 +1,24 @@
+#+ summary: Returns a graph containing the number of triples for a specified namespace
+#+ tags:
+#+   - rdf_metadata
+#+ defaults:
+#+   - ns: hgnc
+#+   - bio2rdf_version: 5
+
+PREFIX void: <http://rdfs.org/ns/void#>
+CONSTRUCT 
+{
+    ?_graph_iri void:triples ?triples .
+}
+WHERE
+{
+    SELECT ?_graph_iri (COUNT(*) AS ?triples)
+    {
+        #BIND("hgnc" AS ?_ns)
+        #BIND("5" AS ?_bio2rdf_version)
+        BIND( URI(CONCAT("http://bio2rdf.org/", ?_ns, "_resource:bio2rdf.dataset.", ?_ns, ".R", ?_bio2rdf_version)) AS ?_graph_iri)
+        GRAPH ?_graph_iri {
+            ?s ?p ?o  
+        }
+    } GROUP BY ?_graph_iri
+}
