@@ -1,6 +1,6 @@
 #+ summary: Returns a graph containing the number of triples for a specified namespace
 #+ tags:
-#+   - rdf_metadata
+#+   - bio2rdf_metadata
 #+ defaults:
 #+   - ns: hgnc
 #+   - bio2rdf_version: 5
