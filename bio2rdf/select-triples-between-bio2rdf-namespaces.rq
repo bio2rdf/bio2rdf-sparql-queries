@@ -1,0 +1,24 @@
+#+ summary: Compute the number of triples between all pairs of namespaces in the specified dataset graph
+#+ tags:
+#+   - bio2rdf-metadata
+#+ defaults:
+#+   - ns: hgnc
+#+   - bio2rdf_version: 5
+
+SELECT ?guri ?ns1 ?ns2 (COUNT(*) AS ?triples)
+{
+
+    BIND( URI(CONCAT("http://bio2rdf.org/", ?_ns, "_resource:bio2rdf.dataset.", ?_ns, ".R", ?_bio2rdf_version)) AS ?guri)
+    BIND( CONCAT($_ns, "_resource") AS $nsr)
+    BIND( CONCAT(?_ns, "_vocabulary") AS ?nsv)
+    
+    GRAPH ?guri {
+        ?s <http://bio2rdf.org/bio2rdf_vocabulary:namespace> ?ns1 .
+        ?s ?p ?o .
+        ?o <http://bio2rdf.org/bio2rdf_vocabulary:namespace> ?ns2 .
+    }
+    FILTER (?ns1 != ?ns2)
+    FILTER (str(?ns2) != ?nsr && str(?ns2) != ?nsv && str(?ns1) != ?nsr && str(?ns1) != ?nsr)
+}
+GROUP BY ?guri ?ns1 ?ns2
+ORDER BY asc(?ns1) DESC(?triples) ASC(?ns2)
