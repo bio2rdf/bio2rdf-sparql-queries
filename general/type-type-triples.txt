@@ -1,0 +1,34 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?stype ?otype ?triples 
+{
+  # parameters
+  BIND("drugbank" AS ?_ns)
+  BIND("5" AS ?_bio2rdf_version)
+  
+  # bio2rdf standard namespaces and uris
+  BIND("http://bio2rdf.org/" AS ?base_uri)
+  BIND( CONCAT($_ns, "_resource") AS $nsr)
+  BIND( CONCAT(?_ns, "_vocabulary") AS ?nsv)
+  BIND( URI(CONCAT(?base_uri, ?nsv, ":Resource")) AS ?nsr_uri)
+  BIND( URI(CONCAT(?base_uri, ?nsr, ":bio2rdf.dataset.", ?_ns, ".R", ?_bio2rdf_version)) AS ?graph)
+ {{
+  SELECT ?stype ?otype (count(*) AS ?triples) 
+  {
+   GRAPH ?graph {
+     ?s a ?stype.
+     ?s ?p ?o .
+     ?o a ?otype .
+     ?otype a ?nsr_uri .
+     FILTER (?p != rdf:type && ?p != void:inDataset)
+    }
+   } GROUP BY ?stype ?otype 
+ }}
+ FILTER (?stype != ?nsr_uri)
+ FILTER (?otype != rdfs:Resource && ?otype != owl:Class && ?otype != dcat:Distribution && ?otype != dct:Dataset)
+}

@@ -1,0 +1,12 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+#SELECT ?type (count(distinct *) AS ?number) { ?s a ?type} group by  ?type
+#SELECT distinct ?g { graph ?g {?x ?y ?z}}
+SELECT ?stype (count(distinct *) AS ?triples) ?otype
+{
+  GRAPH <http://bio2rdf.org/drugbank_resource:bio2rdf.dataset.drugbank.R5> {
+    ?s a ?stype.
+    ?s ?p ?o.
+    ?o a ?otype .
+  }
+} GROUP BY ?stype ?otype
