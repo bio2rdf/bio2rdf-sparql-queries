@@ -1,0 +1,45 @@
+#+ summary: get cardiovascular phenotypes in null/knockout mouse models for the target for a given drug
+#+ description: This query will retrieve (cardiovascular) phenotypes for null/knockout mouse models of known drug (imatinib) targets, ordered by frequency of the phenotype
+#+ tags:
+#+   - translational-medicine
+#+   - drugbank
+#+   - hgnc
+#+   - mgd
+#+   - mp
+#+ defaults:
+#+   - druginput: imatinib
+#+   - parent_phenotype_input: cardiovascular system phenotype
+#+ endpoint: https://bio2rdf.137.120.31.102.nip.io/sparql
+
+PREFIX db: <http://bio2rdf.org/drugbank:>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX mp: <http://bio2rdf.org/mp:>
+PREFIX mv: <http://bio2rdf.org/mgi_vocabulary:>
+PREFIX dv: <http://bio2rdf.org/drugbank_vocabulary:>
+PREFIX hv: <http://bio2rdf.org/hgnc_vocabulary:>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?phenotype_label (COUNT(*) AS ?phenotype_frequency)
+{
+  #BIND("imatinib" AS ?_druginput)
+  #BIND("cardiovascular system phenotype" AS ?_parent_phenotype_input)
+  
+  ?drug dct:title ?drugname .
+  FILTER regex (?drugname,?_druginput,"i")
+  
+  ?drug dv:target ?target .
+  ?target dv:x-hgnc ?hgnc .
+  
+  ?hgnc hv:x-mgd ?marker .
+  ?model mv:marker ?marker .
+  ?model mv:allele ?allele .
+  ?allele mv:allele-attribute ?allele_a .
+  FILTER(str(?allele_a) = "Null/knockout")
+  ?model mv:phenotype ?phenotype .
+  ?phenotype rdfs:label ?phenotype_label .
+
+  ?phenotype rdfs:subClassOf* ?parent_phenotype . 
+  ?parent_phenotype dct:title ?parent_phenotype_label .
+  FILTER regex (?parent_phenotype_label, ?_parent_phenotype_input, "i")
+} 
+GROUP BY ?phenotype_label
+ORDER BY DESC(?phenotype_frequency)
