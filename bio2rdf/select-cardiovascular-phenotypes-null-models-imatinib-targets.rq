@@ -1,5 +1,5 @@
-#+ summary: predicted cardiovascular phenotypes for a given drug
-#+ description: This query will retrieve (cardiovascular) phenotypes for null/knockout animal models of known drug targets, ordered by frequency of the phenotype
+#+ summary: get cardiovascular phenotypes in null/knockout mouse models for the target for a given drug
+#+ description: This query will retrieve (cardiovascular) phenotypes for null/knockout mouse models of known drug targets, ordered by frequency of the phenotype
 #+ tags:
 #+   - translational-medicine
 #+   - bio2rdf-query
