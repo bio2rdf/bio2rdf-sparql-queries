@@ -14,7 +14,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?indication_uri ?indication
 {
-  BIND ("beclomethasone dipropionate" AS ?_drug)
+  #BIND ("beclomethasone dipropionate" AS ?_drug)
   ?db dct:title ?drugtitle .
   FILTER regex(?drugtitle, ?_drug, "i")
    #FILTER (?db = db:DB00394)
