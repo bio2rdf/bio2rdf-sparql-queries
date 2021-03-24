@@ -6,6 +6,10 @@
 #+ defaults:
 #+   - drug_input: imatinib
 #+   - parent_phenotype_input: cardiovascular system phenotype
+#+ endpoint:
+#+   - https://bio2rdf.org/sparql
+#+   - https://bio2rdf.137.120.31.102.nip.io/sparql
+
 PREFIX db: <http://bio2rdf.org/drugbank:>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX mp: <http://bio2rdf.org/mp:>
