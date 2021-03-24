@@ -3,7 +3,7 @@
 #+ tags:
 #+   - translational-medicine
 #+ defaults:
-#+   - drug: beclomethasone dipropionate
+#+   - drug: aspirin
 #+ endpoint: https://bio2rdf.137.120.31.102.nip.io/sparql
 
 PREFIX sv: <http://bio2rdf.org/sider_vocabulary:>
@@ -14,8 +14,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT (?db AS ?drug_uri) (?drugtitle AS ?drug)  ?indication_uri ?indication
 {
-  #BIND ("beclomethasone dipropionate" AS ?_drug)
-  ?db dct:title ?drugtitle .
+  #BIND ("aspirin" AS ?_drug)
   FILTER regex(?drugtitle, ?_drug, "i")
   {
     ?db dct:title ?drugtitle .
