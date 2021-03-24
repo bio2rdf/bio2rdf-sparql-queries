@@ -1,0 +1,28 @@
+#+ summary: diseases that a particular drug is indicated to treat.
+#+ description: This query will retrieve indications for a given drug. This query uses sider (text mined indications from product labels) and drugbank (for the drug name)
+#+ tags:
+#+   - translational-medicine
+#+ defaults:
+#+   - drug: beclomethasone dipropionate
+#+ endpoint: https://bio2rdf.137.120.31.102.nip.io/sparql
+
+PREFIX sv: <http://bio2rdf.org/sider_vocabulary:>
+PREFIX dv: <http://bio2rdf.org/drugbank_vocabulary:>
+PREFIX db: <http://bio2rdf.org/drugbank:>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?indication_uri ?indication
+{
+  BIND ("beclomethasone dipropionate" AS ?_drug)
+  ?db dct:title ?drugtitle .
+  FILTER regex(?drugtitle, ?_drug, "i")
+   #FILTER (?db = db:DB00394)
+  ?db dv:x-pubchemcompound ?pc .
+  ?stitch sv:x-pubchem.compound ?pc .
+  ?stitch sv:stitch-flat ?sf .
+  ?di sv:drug ?sf .
+  ?di sv:indication ?indication_uri .
+  ?di a sv:Drug-Indication-Association .
+  ?indication_uri dct:title ?indication .
+} 
