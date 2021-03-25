@@ -3,14 +3,14 @@
 #+ tags:
 #+   - omim
 #+ defaults:
-#+   - disease: aspirin
+#+   - disease: Aarskog Syndrome
 #+ endpoint: https://bio2rdf.137.120.31.102.nip.io/sparql
 
  PREFIX ov: <http://bio2rdf.org/omim_vocabulary:>
  PREFIX dct: <http://purl.org/dc/terms/>
  SELECT distinct ?disease_uri ?disease_label ?phenotype_uri ?phenotype
 {
-    #BIND("TYPE 2 DIABETES MELLITUS" AS ?_disease)
+    #BIND("Aarskog Syndrome" AS ?_disease)
   
     ?disease_uri dct:title ?disease_label .
     FILTER regex(?disease_label, ?_disease, "i")
