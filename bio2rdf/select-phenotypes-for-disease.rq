@@ -8,13 +8,13 @@
 
  PREFIX ov: <http://bio2rdf.org/omim_vocabulary:>
  PREFIX dct: <http://purl.org/dc/terms/>
- SELECT distinct ?disease ?disease_label ?phenotype_uri ?phenotype
+ SELECT distinct ?disease_uri ?disease_label ?phenotype_uri ?phenotype
 {
     #BIND("TYPE 2 DIABETES MELLITUS" AS ?_disease)
   
-    ?d dct:title ?disease_label .
+    ?disease_uri dct:title ?disease_label .
     FILTER regex(?disease_label, ?_disease, "i")
-    ?d ov:clinical-synopsis ?cs .
+    ?disease_uri ov:clinical-synopsis ?cs .
     ?cs ov:feature ?f .
     ?f ov:x-hp|ov:x-umls|ov:x-snomed ?phenotype_uri .
     ?phenotype_uri dct:title ?phenotype .
