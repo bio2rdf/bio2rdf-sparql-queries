@@ -1,0 +1,21 @@
+#+ summary: get phenotypes associated with a particular disease
+#+ description: This query will retrieve phenotypes (HP, UMLS, SNOMED) associated with a particular disease. This query uses omim as a data source.
+#+ tags:
+#+   - omim
+#+ defaults:
+#+   - disease: aspirin
+#+ endpoint: https://bio2rdf.137.120.31.102.nip.io/sparql
+
+ PREFIX ov: <http://bio2rdf.org/omim_vocabulary:>
+ PREFIX dct: <http://purl.org/dc/terms/>
+ SELECT distinct ?disease ?disease_label ?phenotype_uri ?phenotype
+{
+    #BIND("TYPE 2 DIABETES MELLITUS" AS ?_disease)
+  
+    ?d dct:title ?disease_label .
+    FILTER regex(?disease_label, ?_disease, "i")
+    ?d ov:clinical-synopsis ?cs .
+    ?cs ov:feature ?f .
+    ?f ov:x-hp|ov:x-umls|ov:x-snomed ?phenotype_uri .
+    ?phenotype_uri dct:title ?phenotype .
+} 
